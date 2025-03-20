@@ -67,7 +67,7 @@ const merchCatalog = {
     id: "totebag",
     name: "Canvas Tote Bag",
     price: "$19.99",
-    image: "/totebag.jpg",
+    image: "/cbarrgs-black-logo.jpeg",
     description: "Durable canvas tote bag with CBARRGS logo.",
     details: [
       "100% heavy-duty canvas",

@@ -1,6 +1,6 @@
 # CBARRGS Official Website
 
-A clean, minimalist website for the music artist CBARRGS.
+A clean, minimalist website for the music artist CBARRGS. Designed locally with Windsurf and pushed to Loavable for deployment.
 
 ## Features
 

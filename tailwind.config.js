@@ -8,17 +8,20 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        mono: ["Space Mono", "monospace"],
+        sans: ["var(--font-inter)", "sans-serif"],
+        mono: ["var(--font-space-mono)", "monospace"],
       },
       colors: {
-        dark: "#1a1a1a",
-        light: "#ffffff",
-        accent: "#ff3c00",
-        'brand-orange': '#FFA500',
+        background: "#000000",
+        foreground: "#FFFFFF",
+        accent: "#FFFFFF",
+        muted: "rgba(255, 255, 255, 0.7)",
       },
       backgroundImage: {
         'texture': "url('/texture.png')",
+      },
+      backdropBlur: {
+        xs: '2px',
       },
     },
   },

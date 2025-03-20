@@ -1,88 +1,186 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import Navigation from "@/components/Navigation";
+import { useState, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
 import VideoSection from "@/components/VideoSection";
+import SocialLinks from "@/components/SocialLinks";
+import Image from "next/image";
+import Navigation from "@/components/Navigation";
+import AnimatedArrow from "@/components/AnimatedArrow";
+import { ExternalLink, ShoppingBag, Music, Youtube } from "lucide-react";
+
+// Framer Motion animation variants
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.6,
+      ease: "easeOut" 
+    }
+  }
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 export default function Home() {
-  const latestAlbum = {
-    title: "LATEST ALBUM",
-    name: "HORSIE (DELUXE)"
+  const [scrollY, setScrollY] = useState(0);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    // Start animations when page loads
+    controls.start("animate");
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [controls]);
+
+  const handleScrollDown = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: "smooth"
+    });
   };
 
+  const parallaxOffset = -scrollY * 0.15;
+
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="min-h-screen overflow-x-hidden">
       <Navigation />
+      {/* Hero Section */}
+      <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 z-0" 
+          style={{ 
+            transform: `translateY(${parallaxOffset}px)`,
+            transition: "transform 0.1s ease-out"
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black z-10" />
+          <div className="w-full h-full bg-black" />
+        </div>
 
+        <div className="container mx-auto px-4 z-10 relative">
+          <motion.div 
+            className="flex flex-col items-center justify-center gap-10"
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+          >
+            <motion.div 
+              className="max-w-sm mx-auto"
+              variants={fadeIn}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Image
+                src="/cbarrgs-cartoon.png"
+                alt="CBARRGS"
+                width={400}
+                height={400}
+                className="brand-image"
+                priority
+              />
+            </motion.div>
+
+            <motion.a
+              href="https://open.spotify.com/artist/4qRI7BqjuKH3ulYQrEYnLa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/20 rounded-full font-mono tracking-wider text-sm transition-all duration-300 hover:scale-105"
+              variants={fadeIn}
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Music className="w-5 h-5 mr-2 inline" />
+              LISTEN ON SPOTIFY
+              <ExternalLink className="w-4 h-4 ml-2 inline" />
+            </motion.a>
+
+            <motion.a
+              href="/store"
+              className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/20 rounded-full font-mono tracking-wider text-sm transition-all duration-300 hover:scale-105"
+              variants={fadeIn}
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <ShoppingBag className="w-5 h-5 mr-2 inline" />
+              OFFICIAL STORE
+            </motion.a>
+
+            <motion.a
+              href="https://www.youtube.com/@cbarrgs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/20 rounded-full font-mono tracking-wider text-sm transition-all duration-300 hover:scale-105"
+              variants={fadeIn}
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Youtube className="w-5 h-5 mr-2 inline" />
+              YOUTUBE
+              <ExternalLink className="w-4 h-4 ml-2 inline" />
+            </motion.a>
+
+            <motion.button
+              onClick={handleScrollDown}
+              className="mt-10 arrow-down"
+              aria-label="Scroll down"
+              variants={fadeIn}
+              whileHover={{ y: 5 }}
+            >
+              ↓
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Content Section */}
       <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="flex flex-col items-center justify-center mt-12 px-4"
+        className="container mx-auto px-4 pt-20 pb-24 max-w-5xl space-y-20"
+        initial="initial"
+        animate={controls}
+        variants={staggerContainer}
       >
-        {/* Band Logo */}
-        <div className="mb-12 w-full max-w-md mx-auto">
-          <img 
-            src="/cbarrgs-logo.svg" 
-            alt="CBARRGS" 
-            className="brand-image w-full h-auto"
-          />
-        </div>
-
-        {/* Album Cover */}
-        <div className="mb-8 w-full max-w-lg mx-auto">
-          <img 
-            src="/album-cover.svg" 
-            alt="Album Cover" 
-            className="w-full h-auto"
-          />
-        </div>
-
-        {/* Album Title */}
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center text-dark">
-          {latestAlbum.name}
-        </h2>
-
-        {/* Down Arrow */}
-        <div className="my-8">
-          <p className="arrow-down">↓</p>
-        </div>
-
-        {/* Links Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl w-full mb-16">
-          <Link 
-            href="https://open.spotify.com/artist/example" 
-            target="_blank"
-            className="bg-dark text-white py-3 px-6 text-center hover:bg-black transition-colors"
-          >
-            LISTEN/DOWNLOAD
-          </Link>
-          <Link 
-            href="/store" 
-            className="bg-dark text-white py-3 px-6 text-center hover:bg-black transition-colors"
-          >
-            OFFICIAL STORE
-          </Link>
-          <Link 
-            href="https://bandcamp.com/example" 
-            target="_blank"
-            className="bg-dark text-white py-3 px-6 text-center hover:bg-black transition-colors"
-          >
-            BANDCAMP
-          </Link>
-          <Link 
-            href="https://soundcloud.com/example" 
-            target="_blank"
-            className="bg-dark text-white py-3 px-6 text-center hover:bg-black transition-colors"
-          >
-            STREAM
-          </Link>
-        </div>
-
         {/* Videos Section */}
-        <VideoSection />
+        <div className="flex flex-col items-center justify-center gap-8 p-8 w-full max-w-4xl mx-auto">
+          <AnimatedArrow size={48} />
+          <div className="w-full bg-gray-900 p-4 rounded-lg border border-white/10 shadow-xl">
+            <VideoSection />
+          </div>
+        </div>
+
+        {/* Spotify Embed Section */}
+        <div className="flex flex-col items-center justify-center gap-8 p-8 mb-12 w-full max-w-4xl mx-auto">
+          <AnimatedArrow size={48} />
+          <div className="w-full max-w-3xl bg-gray-900 p-4 rounded-lg border border-white/10 shadow-xl">
+            <iframe
+              src="https://open.spotify.com/embed/artist/4qRI7BqjuKH3ulYQrEYnLa?utm_source=generator&theme=0"
+              width="100%"
+              height="352"
+              frameBorder="0" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              className="rounded-lg shadow-xl"
+            ></iframe>
+          </div>
+        </div>
+
+        {/* Social Links */}
+        <motion.div variants={fadeIn} className="w-full mb-12">
+          <SocialLinks />
+        </motion.div>
       </motion.div>
     </main>
   );

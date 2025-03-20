@@ -1,0 +1,60 @@
+# General Code Style & Formatting
+- Follow the Airbnb Style Guide for code formatting.
+- Use PascalCase for React component file names (e.g., UserCard.tsx, not user-card.tsx).
+- Prefer named exports for components.
+
+# Project Structure & Architecture
+- Follow Next.js patterns and use the App Router.
+- Correctly determine when to use server vs. client components in Next.js.
+
+# Styling & UI
+- Use Tailwind CSS for styling.
+- Use Shadcn UI for components.
+- Maintain the minimalist black and white aesthetic.
+- Ensure consistent spacing across components.
+- Implement refined typography hierarchy.
+- Use strategic animations for engagement.
+
+# Data Fetching & Forms
+- Use TanStack Query (react-query) for frontend data fetching.
+- Use React Hook Form for form handling.
+- Use Zod for validation.
+
+# State Management & Logic
+- Use React Context for state management.
+
+# Backend & Database
+- Use Prisma for database access.
+
+# Design Specifications
+## Visual Cohesion
+- Maintain minimalist black and white aesthetic.
+- Ensure consistent spacing across components.
+- Refine typography hierarchy.
+- Incorporate strategic animations for engagement.
+
+## User Experience
+- Enhance video thumbnail/player interaction.
+- Create more intuitive navigation.
+- Improve mobile responsiveness.
+
+## Brand Identity
+- Highlight the unique cartoon imagery.
+- Create visual consistency across all pages.
+- Establish a stronger visual language.
+
+# Development Priorities
+## Technical Foundation
+- Continue leveraging Next.js and TypeScript for performance.
+- Optimize Tailwind CSS configuration for design consistency.
+- Implement proper responsive breakpoints.
+
+## Component Architecture
+- Refactor video components for better performance.
+- Enhance custom cursor functionality.
+- Improve social media integration.
+
+## Performance Optimization
+- Implement image lazy loading.
+- Optimize video loading strategy.
+- Reduce unnecessary re-renders.
